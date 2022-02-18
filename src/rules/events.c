@@ -609,10 +609,10 @@ static unsigned int reduceExpressionSequence(ruleset *tree,
         }
         
 
-        if ((operator == OP_AND && !targetProperty->value.b) || 
-            (operator == OP_OR && targetProperty->value.b)) {
-            while (currentExpression->operator != OP_END) {
-                ++*i;
+       if ((((operator == OP_AND) && !targetProperty->value.b) || 
+             ((operator == OP_OR)  &&  targetProperty->value.b))
+            && (*i < exprs->length)) {
+            while ((currentExpression->operator != OP_END) && (++*i < exprs->length)) {
                 currentExpression = &exprs->expressions[*i];
             }
             return RULES_OK;
